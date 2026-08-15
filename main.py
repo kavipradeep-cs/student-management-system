@@ -1,3 +1,23 @@
+def calculate_grade(average):
+    if average >= 90:
+        return "A+"
+    elif average >= 80:
+        return "A"
+    elif average >= 70:
+        return "B"
+    elif average >= 60:
+        return "C"
+    elif average >= 50:
+        return "D"
+    else:
+        return "F"
+
+def calculate_status(average):
+    if average >= 50:
+        return "PASS"
+    else:
+        return "FAIL"
+
 def add_student():
     print("================================")
     print("   STUDENT MANAGEMENT SYSTEM")
@@ -16,27 +36,14 @@ def add_student():
     total = mark1 + mark2 + mark3 + mark4 + mark5
     average = total / 5
 
-    if average >= 90:
-        grade = "A+"
-    elif average >= 80:
-        grade = "A"
-    elif average >= 70:
-        grade = "B"
-    elif average >= 60:
-        grade = "C"
-    elif average >= 50:
-        grade = "D"
-    else:
-        grade = "F"
+    grade = calculate_grade(average)
 
-    if average >= 50:
-        status = "PASS"
-    else:
-        status = "FAIL"
+    status = calculate_status(average)
 
     print("\n================================")
     print("        STUDENT REPORT")
     print("================================")
+
     print("Name       :", name)
     print("Age        :", age)
     print("Department :", department)
@@ -53,6 +60,7 @@ def add_student():
     print("Average    :", average)
     print("Grade      :", grade)
     print("Status     :", status)
+
     print("================================")
 
 
