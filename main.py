@@ -98,6 +98,31 @@ def view_students():
         print("--------------------------------")
 
 
+def search_student():
+    search_name = input("\nEnter student name to search: ")
+
+    found = False
+
+    for student in students:
+        if student["name"].lower() == search_name.lower():
+            print("\n================================")
+            print("        STUDENT FOUND")
+            print("================================")
+
+            print("Name       :", student["name"])
+            print("Age        :", student["age"])
+            print("Department :", student["department"])
+            print("Average    :", student["average"])
+            print("Grade      :", student["grade"])
+            print("Status     :", student["status"])
+
+            found = True
+            break
+
+    if not found:
+        print("\nStudent not found.")
+
+
 while True:
     student = add_student()
     students.append(student)
@@ -109,3 +134,4 @@ while True:
 
 
 view_students()
+search_student()
