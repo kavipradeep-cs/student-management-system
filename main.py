@@ -1,3 +1,6 @@
+students = []
+
+
 def calculate_grade(average):
     if average >= 90:
         return "A+"
@@ -12,15 +15,17 @@ def calculate_grade(average):
     else:
         return "F"
 
+
 def calculate_status(average):
     if average >= 50:
         return "PASS"
     else:
         return "FAIL"
 
+
 def add_student():
-    print("================================")
-    print("   STUDENT MANAGEMENT SYSTEM")
+    print("\n================================")
+    print("       ADD STUDENT")
     print("================================")
 
     name = input("Enter student name: ")
@@ -37,7 +42,6 @@ def add_student():
     average = total / 5
 
     grade = calculate_grade(average)
-
     status = calculate_status(average)
 
     print("\n================================")
@@ -63,5 +67,45 @@ def add_student():
 
     print("================================")
 
+    return {
+        "name": name,
+        "age": age,
+        "department": department,
+        "mark1": mark1,
+        "mark2": mark2,
+        "mark3": mark3,
+        "mark4": mark4,
+        "mark5": mark5,
+        "total": total,
+        "average": average,
+        "grade": grade,
+        "status": status
+    }
 
-add_student()
+
+def view_students():
+    print("\n================================")
+    print("        ALL STUDENTS")
+    print("================================")
+
+    for student in students:
+        print("Name       :", student["name"])
+        print("Age        :", student["age"])
+        print("Department :", student["department"])
+        print("Average    :", student["average"])
+        print("Grade      :", student["grade"])
+        print("Status     :", student["status"])
+        print("--------------------------------")
+
+
+while True:
+    student = add_student()
+    students.append(student)
+
+    choice = input("\nDo you want to add another student? (yes/no): ")
+
+    if choice.lower() != "yes":
+        break
+
+
+view_students()
