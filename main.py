@@ -123,6 +123,59 @@ def search_student():
         print("\nStudent not found.")
 
 
+def update_student():
+    search_name = input("\nEnter student name to update: ")
+
+    for student in students:
+        if student["name"].lower() == search_name.lower():
+
+            print("\nStudent found!")
+            print("1. Update name")
+            print("2. Update age")
+            print("3. Update department")
+            print("4. Update marks")
+
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                student["name"] = input("Enter new name: ")
+
+            elif choice == "2":
+                student["age"] = int(input("Enter new age: "))
+
+            elif choice == "3":
+                student["department"] = input("Enter new department: ")
+
+            elif choice == "4":
+                student["mark1"] = int(input("Enter new mark 1: "))
+                student["mark2"] = int(input("Enter new mark 2: "))
+                student["mark3"] = int(input("Enter new mark 3: "))
+                student["mark4"] = int(input("Enter new mark 4: "))
+                student["mark5"] = int(input("Enter new mark 5: "))
+
+                student["total"] = (
+                    student["mark1"]
+                    + student["mark2"]
+                    + student["mark3"]
+                    + student["mark4"]
+                    + student["mark5"]
+                )
+
+                student["average"] = student["total"] / 5
+
+                student["grade"] = calculate_grade(student["average"])
+                student["status"] = calculate_status(student["average"])
+
+            else:
+                print("Invalid choice.")
+                return
+
+            print("\nStudent updated successfully!")
+            return
+
+    print("\nStudent not found.")
+
+
 while True:
     student = add_student()
     students.append(student)
@@ -135,3 +188,4 @@ while True:
 
 view_students()
 search_student()
+update_student()
