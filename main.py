@@ -1,4 +1,49 @@
+import json
+
 students = []
+
+
+def save_students():
+    with open("students.json", "w") as file:
+        json.dump(students, file, indent=4)
+
+
+def load_students():
+    global students
+
+    try:
+        with open("students.json", "r") as file:
+            students = json.load(file)
+    except FileNotFoundError:
+        students = []
+
+
+def get_age():
+    while True:
+        try:
+            age = int(input("Enter student age: "))
+
+            if 1 <= age <= 100:
+                return age
+            else:
+                print("Please enter a valid age.")
+
+        except ValueError:
+            print("Please enter a valid number.")
+
+
+def get_mark(subject):
+    while True:
+        try:
+            mark = int(input("Enter " + subject + ": "))
+
+            if 0 <= mark <= 100:
+                return mark
+            else:
+                print("Mark must be between 0 and 100.")
+
+        except ValueError:
+            print("Please enter a valid number.")
 
 
 def calculate_grade(average):
@@ -29,14 +74,14 @@ def add_student():
     print("================================")
 
     name = input("Enter student name: ")
-    age = int(input("Enter student age: "))
+    age = get_age()
     department = input("Enter department: ")
 
-    mark1 = int(input("Enter mark 1: "))
-    mark2 = int(input("Enter mark 2: "))
-    mark3 = int(input("Enter mark 3: "))
-    mark4 = int(input("Enter mark 4: "))
-    mark5 = int(input("Enter mark 5: "))
+    mark1 = get_mark("mark 1")
+    mark2 = get_mark("mark 2")
+    mark3 = get_mark("mark 3")
+    mark4 = get_mark("mark 4")
+    mark5 = get_mark("mark 5")
 
     total = mark1 + mark2 + mark3 + mark4 + mark5
     average = total / 5
@@ -142,17 +187,17 @@ def update_student():
                 student["name"] = input("Enter new name: ")
 
             elif choice == "2":
-                student["age"] = int(input("Enter new age: "))
+                student["age"] = get_age()
 
             elif choice == "3":
                 student["department"] = input("Enter new department: ")
 
             elif choice == "4":
-                student["mark1"] = int(input("Enter new mark 1: "))
-                student["mark2"] = int(input("Enter new mark 2: "))
-                student["mark3"] = int(input("Enter new mark 3: "))
-                student["mark4"] = int(input("Enter new mark 4: "))
-                student["mark5"] = int(input("Enter new mark 5: "))
+                student["mark1"] = get_mark("new mark 1")
+                student["mark2"] = get_mark("new mark 2")
+                student["mark3"] = get_mark("new mark 3")
+                student["mark4"] = get_mark("new mark 4")
+                student["mark5"] = get_mark("new mark 5")
 
                 student["total"] = (
                     student["mark1"]
@@ -190,6 +235,9 @@ def delete_student():
     print("\nStudent not found.")
 
 
+load_students()
+
+
 while True:
     print("\n================================")
     print("   STUDENT MANAGEMENT SYSTEM")
@@ -207,6 +255,7 @@ while True:
     if choice == "1":
         student = add_student()
         students.append(student)
+        save_students()
 
     elif choice == "2":
         view_students()
@@ -216,9 +265,11 @@ while True:
 
     elif choice == "4":
         update_student()
+        save_students()
 
     elif choice == "5":
         delete_student()
+        save_students()
 
     elif choice == "6":
         print("\nThank you for using Student Management System!")
