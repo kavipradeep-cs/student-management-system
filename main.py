@@ -88,6 +88,10 @@ def view_students():
     print("        ALL STUDENTS")
     print("================================")
 
+    if len(students) == 0:
+        print("No students available.")
+        return
+
     for student in students:
         print("Name       :", student["name"])
         print("Age        :", student["age"])
@@ -101,10 +105,9 @@ def view_students():
 def search_student():
     search_name = input("\nEnter student name to search: ")
 
-    found = False
-
     for student in students:
         if student["name"].lower() == search_name.lower():
+
             print("\n================================")
             print("        STUDENT FOUND")
             print("================================")
@@ -116,11 +119,9 @@ def search_student():
             print("Grade      :", student["grade"])
             print("Status     :", student["status"])
 
-            found = True
-            break
+            return
 
-    if not found:
-        print("\nStudent not found.")
+    print("\nStudent not found.")
 
 
 def update_student():
@@ -162,7 +163,6 @@ def update_student():
                 )
 
                 student["average"] = student["total"] / 5
-
                 student["grade"] = calculate_grade(student["average"])
                 student["status"] = calculate_status(student["average"])
 
@@ -189,17 +189,40 @@ def delete_student():
 
     print("\nStudent not found.")
 
+
 while True:
-    student = add_student()
-    students.append(student)
+    print("\n================================")
+    print("   STUDENT MANAGEMENT SYSTEM")
+    print("================================")
+    print("1. Add Student")
+    print("2. View Students")
+    print("3. Search Student")
+    print("4. Update Student")
+    print("5. Delete Student")
+    print("6. Exit")
+    print("================================")
 
-    choice = input("\nDo you want to add another student? (yes/no): ")
+    choice = input("Enter your choice: ")
 
-    if choice.lower() != "yes":
+    if choice == "1":
+        student = add_student()
+        students.append(student)
+
+    elif choice == "2":
+        view_students()
+
+    elif choice == "3":
+        search_student()
+
+    elif choice == "4":
+        update_student()
+
+    elif choice == "5":
+        delete_student()
+
+    elif choice == "6":
+        print("\nThank you for using Student Management System!")
         break
 
-
-view_students()
-search_student()
-update_student()
-delete_student()
+    else:
+        print("\nInvalid choice. Please try again.")
