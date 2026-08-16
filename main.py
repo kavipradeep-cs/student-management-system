@@ -176,6 +176,19 @@ def update_student():
     print("\nStudent not found.")
 
 
+def delete_student():
+    search_name = input("\nEnter student name to delete: ")
+
+    for student in students:
+        if student["name"].lower() == search_name.lower():
+
+            students.remove(student)
+
+            print("\nStudent deleted successfully!")
+            return
+
+    print("\nStudent not found.")
+
 while True:
     student = add_student()
     students.append(student)
@@ -189,3 +202,4 @@ while True:
 view_students()
 search_student()
 update_student()
+delete_student()
