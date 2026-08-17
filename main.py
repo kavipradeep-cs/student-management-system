@@ -202,7 +202,12 @@ def view_students():
 
         print("--------------------------------")
         print("Total      :", student.get("total", "N/A"))
-        print("Average    :", student.get("average", "N/A"))
+
+        average = student.get("average", "N/A")
+        if isinstance(average, (int, float)):
+            average = f"{average:.2f}"
+
+        print("Average    :", average)
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
 
@@ -221,7 +226,12 @@ def search_student():
             print("Name       :", student.get("name"))
             print("Age        :", student.get("age"))
             print("Department :", student.get("department"))
-            print("Average    :", student.get("average"))
+
+            average = student.get("average", "N/A")
+            if isinstance(average, (int, float)):
+                average = f"{average:.2f}"
+
+            print("Average    :", average)
             print("Grade      :", student.get("grade"))
             print("Status     :", student.get("status"))
 
@@ -339,9 +349,9 @@ def student_statistics():
     print("Total Students :", total_students)
     print("Passed         :", passed)
     print("Failed         :", failed)
-    print("Class Average  :", class_average)
-    print("Highest Average:", highest_average)
-    print("Lowest Average :", lowest_average)
+    print("Class Average  :", f"{class_average:.2f}")
+    print("Highest Average:", f"{highest_average:.2f}")
+    print("Lowest Average :", f"{lowest_average:.2f}")
 
     print("================================")
 
@@ -366,7 +376,12 @@ def sort_students():
         print("Rank       :", rank)
         print("ID         :", student.get("id", "N/A"))
         print("Name       :", student.get("name", "N/A"))
-        print("Average    :", student.get("average", "N/A"))
+
+        average = student.get("average", "N/A")
+        if isinstance(average, (int, float)):
+            average = f"{average:.2f}"
+
+        print("Average    :", average)
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
         print("--------------------------------")
