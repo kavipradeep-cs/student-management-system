@@ -426,8 +426,13 @@ while True:
         save_students()
 
     elif choice == "6":
+       confirm = input("\nAre you sure you want to exit? (yes/no): ")
+
+       if confirm.lower() == "yes":
         print("\nThank you for using Student Management System!")
         break
+       else:
+        print("\nReturning to main menu...")
 
     elif choice == "7":
         student_statistics()
