@@ -67,12 +67,28 @@ def calculate_status(average):
     else:
         return "FAIL"
 
+def get_student_id():
+    while True:
+        student_id = input("Enter student ID: ").strip()
 
+        if student_id == "":
+            print("Student ID cannot be empty.")
+            continue
+
+        for student in students:
+            if student.get("id") == student_id:
+                print("Student ID already exists. Please enter a different ID.")
+                break
+        else:
+            return student_id
+
+        
 def add_student():
     print("\n================================")
     print("       ADD STUDENT")
     print("================================")
 
+    student_id = get_student_id()
     name = input("Enter student name: ")
     age = get_age()
     department = input("Enter department: ")
@@ -93,6 +109,7 @@ def add_student():
     print("        STUDENT REPORT")
     print("================================")
 
+    print("ID         :", student_id)
     print("Name       :", name)
     print("Age        :", age)
     print("Department :", department)
@@ -113,6 +130,7 @@ def add_student():
     print("================================")
 
     return {
+        "id": student_id,
         "name": name,
         "age": age,
         "department": department,
@@ -138,6 +156,7 @@ def view_students():
         return
 
     for student in students:
+        print("ID         :", student["id"])
         print("Name       :", student["name"])
         print("Age        :", student["age"])
         print("Department :", student["department"])
@@ -148,21 +167,22 @@ def view_students():
 
 
 def search_student():
-    search_name = input("\nEnter student name to search: ")
+    search_id = input("\nEnter student ID to search: ").strip()
 
     for student in students:
-        if student["name"].lower() == search_name.lower():
+        if student.get("id") == search_id:
 
             print("\n================================")
             print("        STUDENT FOUND")
             print("================================")
 
-            print("Name       :", student["name"])
-            print("Age        :", student["age"])
-            print("Department :", student["department"])
-            print("Average    :", student["average"])
-            print("Grade      :", student["grade"])
-            print("Status     :", student["status"])
+            print("ID         :", student.get("id"))
+            print("Name       :", student.get("name"))
+            print("Age        :", student.get("age"))
+            print("Department :", student.get("department"))
+            print("Average    :", student.get("average"))
+            print("Grade      :", student.get("grade"))
+            print("Status     :", student.get("status"))
 
             return
 
@@ -170,10 +190,10 @@ def search_student():
 
 
 def update_student():
-    search_name = input("\nEnter student name to update: ")
+    search_id = input("\nEnter student ID to update: ").strip()
 
     for student in students:
-        if student["name"].lower() == search_name.lower():
+        if student.get("id") == search_id:
 
             print("\nStudent found!")
             print("1. Update name")
@@ -222,14 +242,23 @@ def update_student():
 
 
 def delete_student():
-    search_name = input("\nEnter student name to delete: ")
+    search_id = input("\nEnter student ID to delete: ").strip()
 
     for student in students:
-        if student["name"].lower() == search_name.lower():
+        if student.get("id") == search_id:
 
-            students.remove(student)
+            print("\nStudent found:")
+            print("ID   :", student.get("id"))
+            print("Name :", student.get("name"))
 
-            print("\nStudent deleted successfully!")
+            confirm = input("Are you sure you want to delete this student? (yes/no): ")
+
+            if confirm.lower() == "yes":
+                students.remove(student)
+                print("\nStudent deleted successfully!")
+            else:
+                print("\nDeletion cancelled.")
+
             return
 
     print("\nStudent not found.")

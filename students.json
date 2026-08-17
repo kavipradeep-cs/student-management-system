@@ -1,0 +1,32 @@
+[
+    {
+        "id": "ab",
+        "name": "kavi",
+        "age": 18,
+        "department": "cs",
+        "mark1": 60,
+        "mark2": 70,
+        "mark3": 80,
+        "mark4": 90,
+        "mark5": 90,
+        "total": 390,
+        "average": 78.0,
+        "grade": "B",
+        "status": "PASS"
+    },
+    {
+        "id": "ab1",
+        "name": "kani",
+        "age": 17,
+        "department": "cs",
+        "mark1": 60,
+        "mark2": 76,
+        "mark3": 76,
+        "mark4": 87,
+        "mark5": 67,
+        "total": 366,
+        "average": 73.2,
+        "grade": "B",
+        "status": "PASS"
+    }
+]
