@@ -394,6 +394,7 @@ while True:
     print("\n================================")
     print("   STUDENT MANAGEMENT SYSTEM")
     print("================================")
+    print("Total Students:", len(students))
     print("1. Add Student")
     print("2. View Students")
     print("3. Search Student")
