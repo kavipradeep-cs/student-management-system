@@ -2,11 +2,9 @@ import json
 
 students = []
 
-
 def save_students():
     with open("students.json", "w") as file:
         json.dump(students, file, indent=4)
-
 
 def load_students():
     global students
@@ -17,6 +15,60 @@ def load_students():
     except FileNotFoundError:
         students = []
 
+def get_student_id():
+    while True:
+        student_id = input("Enter student ID: ").strip().upper()
+
+        if student_id == "":
+            print("Student ID cannot be empty.")
+            continue
+
+        if " " in student_id:
+            print("Student ID cannot contain spaces.")
+            continue
+
+        if not student_id.startswith("STU"):
+            print("Student ID must start with STU.")
+            continue
+
+        if not student_id[3:].isdigit():
+            print("Student ID must be like STU001.")
+            continue
+
+        for student in students:
+            if student.get("id") == student_id:
+                print("Student ID already exists. Please enter a different ID.")
+                break
+        else:
+            return student_id
+
+def get_name():
+    while True:
+        name = input("Enter student name: ").strip()
+
+        if name == "":
+            print("Name cannot be empty.")
+            continue
+
+        if not all(char.isalpha() or char.isspace() for char in name):
+            print("Name can contain only letters and spaces.")
+            continue
+
+        return name
+
+def get_department():
+    while True:
+        department = input("Enter department: ").strip()
+
+        if department == "":
+            print("Department cannot be empty.")
+            continue
+
+        if not all(char.isalpha() or char.isspace() for char in department):
+            print("Department can contain only letters and spaces.")
+            continue
+
+        return department.upper()
 
 def get_age():
     while True:
@@ -31,7 +83,6 @@ def get_age():
         except ValueError:
             print("Please enter a valid number.")
 
-
 def get_mark(subject):
     while True:
         try:
@@ -44,7 +95,6 @@ def get_mark(subject):
 
         except ValueError:
             print("Please enter a valid number.")
-
 
 def calculate_grade(average):
     if average >= 90:
@@ -60,38 +110,21 @@ def calculate_grade(average):
     else:
         return "F"
 
-
 def calculate_status(average):
     if average >= 50:
         return "PASS"
     else:
         return "FAIL"
 
-def get_student_id():
-    while True:
-        student_id = input("Enter student ID: ").strip()
-
-        if student_id == "":
-            print("Student ID cannot be empty.")
-            continue
-
-        for student in students:
-            if student.get("id") == student_id:
-                print("Student ID already exists. Please enter a different ID.")
-                break
-        else:
-            return student_id
-
-        
 def add_student():
     print("\n================================")
     print("       ADD STUDENT")
     print("================================")
 
     student_id = get_student_id()
-    name = input("Enter student name: ")
+    name = get_name()
     age = get_age()
-    department = input("Enter department: ")
+    department = get_department()
 
     mark1 = get_mark("mark 1")
     mark2 = get_mark("mark 2")
@@ -100,7 +133,7 @@ def add_student():
     mark5 = get_mark("mark 5")
 
     total = mark1 + mark2 + mark3 + mark4 + mark5
-    average = total / 5
+    average = round(total / 5, 2)
 
     grade = calculate_grade(average)
     status = calculate_status(average)
@@ -145,7 +178,6 @@ def add_student():
         "status": status
     }
 
-
 def view_students():
     print("\n================================")
     print("        ALL STUDENTS")
@@ -156,22 +188,31 @@ def view_students():
         return
 
     for student in students:
-        print("ID         :", student["id"])
-        print("Name       :", student["name"])
-        print("Age        :", student["age"])
-        print("Department :", student["department"])
-        print("Average    :", student["average"])
-        print("Grade      :", student["grade"])
-        print("Status     :", student["status"])
-        print("--------------------------------")
+        print("ID         :", student.get("id", "N/A"))
+        print("Name       :", student.get("name", "N/A"))
+        print("Age        :", student.get("age", "N/A"))
+        print("Department :", student.get("department", "N/A"))
 
+        print("--------------------------------")
+        print("Mark 1     :", student.get("mark1", "N/A"))
+        print("Mark 2     :", student.get("mark2", "N/A"))
+        print("Mark 3     :", student.get("mark3", "N/A"))
+        print("Mark 4     :", student.get("mark4", "N/A"))
+        print("Mark 5     :", student.get("mark5", "N/A"))
+
+        print("--------------------------------")
+        print("Total      :", student.get("total", "N/A"))
+        print("Average    :", student.get("average", "N/A"))
+        print("Grade      :", student.get("grade", "N/A"))
+        print("Status     :", student.get("status", "N/A"))
+
+        print("================================")
 
 def search_student():
-    search_id = input("\nEnter student ID to search: ").strip()
+    search_id = input("\nEnter student ID to search: ").strip().upper()
 
     for student in students:
-        if student.get("id") == search_id:
-
+        if student.get("id", "").upper() == search_id:
             print("\n================================")
             print("        STUDENT FOUND")
             print("================================")
@@ -188,13 +229,11 @@ def search_student():
 
     print("\nStudent not found.")
 
-
 def update_student():
-    search_id = input("\nEnter student ID to update: ").strip()
+    search_id = input("\nEnter student ID to update: ").strip().upper()
 
     for student in students:
-        if student.get("id") == search_id:
-
+        if student.get("id", "").upper() == search_id:
             print("\nStudent found!")
             print("1. Update name")
             print("2. Update age")
@@ -204,13 +243,13 @@ def update_student():
             choice = input("Enter your choice: ")
 
             if choice == "1":
-                student["name"] = input("Enter new name: ")
+                student["name"] = get_name()
 
             elif choice == "2":
                 student["age"] = get_age()
 
             elif choice == "3":
-                student["department"] = input("Enter new department: ")
+                student["department"] = get_department()
 
             elif choice == "4":
                 student["mark1"] = get_mark("new mark 1")
@@ -227,7 +266,7 @@ def update_student():
                     + student["mark5"]
                 )
 
-                student["average"] = student["total"] / 5
+                student["average"] = round(student["total"] / 5, 2)
                 student["grade"] = calculate_grade(student["average"])
                 student["status"] = calculate_status(student["average"])
 
@@ -240,18 +279,18 @@ def update_student():
 
     print("\nStudent not found.")
 
-
 def delete_student():
-    search_id = input("\nEnter student ID to delete: ").strip()
+    search_id = input("\nEnter student ID to delete: ").strip().upper()
 
     for student in students:
-        if student.get("id") == search_id:
-
+        if student.get("id", "").upper() == search_id:
             print("\nStudent found:")
             print("ID   :", student.get("id"))
             print("Name :", student.get("name"))
 
-            confirm = input("Are you sure you want to delete this student? (yes/no): ")
+            confirm = input(
+                "Are you sure you want to delete this student? (yes/no): "
+            )
 
             if confirm.lower() == "yes":
                 students.remove(student)
@@ -263,9 +302,78 @@ def delete_student():
 
     print("\nStudent not found.")
 
+def student_statistics():
+    print("\n================================")
+    print("       STUDENT STATISTICS")
+    print("================================")
+
+    if len(students) == 0:
+        print("No students available.")
+        return
+
+    total_students = len(students)
+    passed = 0
+    failed = 0
+    total_average = 0
+
+    highest_average = students[0].get("average", 0)
+    lowest_average = students[0].get("average", 0)
+
+    for student in students:
+        average = student.get("average", 0)
+        total_average += average
+
+        if student.get("status") == "PASS":
+            passed += 1
+        else:
+            failed += 1
+
+        if average > highest_average:
+            highest_average = average
+
+        if average < lowest_average:
+            lowest_average = average
+
+    class_average = round(total_average / total_students, 2)
+
+    print("Total Students :", total_students)
+    print("Passed         :", passed)
+    print("Failed         :", failed)
+    print("Class Average  :", class_average)
+    print("Highest Average:", highest_average)
+    print("Lowest Average :", lowest_average)
+
+    print("================================")
+
+def sort_students():
+    if len(students) == 0:
+        print("\nNo students available.")
+        return
+
+    sorted_students = sorted(
+        students,
+        key=lambda student: student.get("average", 0),
+        reverse=True
+    )
+
+    print("\n================================")
+    print("       STUDENT RANKING")
+    print("================================")
+
+    rank = 1
+
+    for student in sorted_students:
+        print("Rank       :", rank)
+        print("ID         :", student.get("id", "N/A"))
+        print("Name       :", student.get("name", "N/A"))
+        print("Average    :", student.get("average", "N/A"))
+        print("Grade      :", student.get("grade", "N/A"))
+        print("Status     :", student.get("status", "N/A"))
+        print("--------------------------------")
+
+        rank += 1
 
 load_students()
-
 
 while True:
     print("\n================================")
@@ -277,6 +385,8 @@ while True:
     print("4. Update Student")
     print("5. Delete Student")
     print("6. Exit")
+    print("7. Student Statistics")
+    print("8. Rank Students")
     print("================================")
 
     choice = input("Enter your choice: ")
@@ -304,5 +414,11 @@ while True:
         print("\nThank you for using Student Management System!")
         break
 
+    elif choice == "7":
+        student_statistics()
+
+    elif choice == "8":
+        sort_students()
+
     else:
-        print("\nInvalid choice. Please try again.")
+        print("\nInvalid choice. Please enter a number from 1 to 8.")
