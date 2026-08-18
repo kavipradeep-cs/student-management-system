@@ -391,19 +391,20 @@ def sort_students():
 load_students()
 
 while True:
-    print("\n================================")
-    print("   STUDENT MANAGEMENT SYSTEM")
-    print("================================")
+    print("\n========================================")
+    print("       STUDENT MANAGEMENT SYSTEM")
+    print("========================================")
     print("Total Students:", len(students))
+    print("----------------------------------------")
     print("1. Add Student")
     print("2. View Students")
     print("3. Search Student")
     print("4. Update Student")
     print("5. Delete Student")
-    print("6. Exit")
-    print("7. Student Statistics")
-    print("8. Rank Students")
-    print("================================")
+    print("6. Student Statistics")
+    print("7. Rank Students")
+    print("8. Exit")
+    print("========================================")
 
     choice = input("Enter your choice: ")
 
@@ -427,6 +428,12 @@ while True:
         save_students()
 
     elif choice == "6":
+        student_statistics()
+
+    elif choice == "7":
+        sort_students()
+
+    elif choice == "8":
        confirm = input("\nAre you sure you want to exit? (yes/no): ")
 
        if confirm.lower() == "yes":
@@ -434,12 +441,6 @@ while True:
         break
        else:
         print("\nReturning to main menu...")
-
-    elif choice == "7":
-        student_statistics()
-
-    elif choice == "8":
-        sort_students()
 
     else:
         print("\nInvalid choice. Please enter a number from 1 to 8.")
