@@ -360,33 +360,64 @@ def sort_students():
         print("\nNo students available.")
         return
 
-    sorted_students = sorted(
-        students,
-        key=lambda student: student.get("average", 0),
-        reverse=True
-    )
-
     print("\n================================")
-    print("       STUDENT RANKING")
+    print("        SORT STUDENTS")
+    print("================================")
+    print("1. Average - Highest to Lowest")
+    print("2. Average - Lowest to Highest")
+    print("3. Name - A to Z")
+    print("4. Name - Z to A")
     print("================================")
 
-    rank = 1
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        sorted_students = sorted(
+            students,
+            key=lambda student: student.get("average", 0),
+            reverse=True
+        )
+
+    elif choice == "2":
+        sorted_students = sorted(
+            students,
+            key=lambda student: student.get("average", 0)
+        )
+
+    elif choice == "3":
+        sorted_students = sorted(
+            students,
+            key=lambda student: student.get("name", "").lower()
+        )
+
+    elif choice == "4":
+        sorted_students = sorted(
+            students,
+            key=lambda student: student.get("name", "").lower(),
+            reverse=True
+        )
+
+    else:
+        print("\nInvalid choice.")
+        return
+
+    print("\n================================")
+    print("       SORTED STUDENTS")
+    print("================================")
 
     for student in sorted_students:
-        print("Rank       :", rank)
-        print("ID         :", student.get("id", "N/A"))
-        print("Name       :", student.get("name", "N/A"))
-
         average = student.get("average", "N/A")
+
         if isinstance(average, (int, float)):
             average = f"{average:.2f}"
 
+        print("ID         :", student.get("id", "N/A"))
+        print("Name       :", student.get("name", "N/A"))
         print("Average    :", average)
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
         print("--------------------------------")
 
-        rank += 1
 
 load_students()
 
@@ -402,7 +433,7 @@ while True:
     print("4. Update Student")
     print("5. Delete Student")
     print("6. Student Statistics")
-    print("7. Rank Students")
+    print("7. Sort Students")
     print("8. Exit")
     print("========================================")
 
