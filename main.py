@@ -417,7 +417,63 @@ def sort_students():
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
         print("--------------------------------")
+def filter_students():
+    if len(students) == 0:
+        print("\nNo students available.")
+        return
 
+    print("\n================================")
+    print("       FILTER STUDENTS")
+    print("================================")
+    print("1. Show Passed Students")
+    print("2. Show Failed Students")
+    print("3. Filter by Department")
+    print("================================")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        filtered_students = [
+            student for student in students
+            if student.get("status", "").lower() == "pass"
+        ]
+
+        print("\n========== PASSED STUDENTS ==========")
+
+    elif choice == "2":
+        filtered_students = [
+            student for student in students
+            if student.get("status", "").lower() == "fail"
+        ]
+
+        print("\n========== FAILED STUDENTS ==========")
+
+    elif choice == "3":
+        department = input("Enter department: ").strip()
+
+        filtered_students = [
+            student for student in students
+            if student.get("department", "").lower() == department.lower()
+        ]
+
+        print("\n========== FILTERED STUDENTS ==========")
+
+    else:
+        print("\nInvalid choice.")
+        return
+
+    if len(filtered_students) == 0:
+        print("No matching students found.")
+        return
+
+    for student in filtered_students:
+        print("--------------------------------")
+        print("ID         :", student.get("id", "N/A"))
+        print("Name       :", student.get("name", "N/A"))
+        print("Department :", student.get("department", "N/A"))
+        print("Average    :", student.get("average", "N/A"))
+        print("Grade      :", student.get("grade", "N/A"))
+        print("Status     :", student.get("status", "N/A"))
 
 load_students()
 
@@ -434,7 +490,8 @@ while True:
     print("5. Delete Student")
     print("6. Student Statistics")
     print("7. Sort Students")
-    print("8. Exit")
+    print("8. Filter Students")
+    print("9. Exit")
     print("========================================")
 
     choice = input("Enter your choice: ")
@@ -465,6 +522,9 @@ while True:
         sort_students()
 
     elif choice == "8":
+       filter_students()
+
+    elif choice == "9":
        confirm = input("\nAre you sure you want to exit? (yes/no): ")
 
        if confirm.lower() == "yes":
@@ -474,4 +534,4 @@ while True:
         print("\nReturning to main menu...")
 
     else:
-        print("\nInvalid choice. Please enter a number from 1 to 8.")
+        print("\nInvalid choice. Please enter a number from 1 to 9.")
