@@ -12,7 +12,17 @@ def load_students():
     try:
         with open("students.json", "r") as file:
             students = json.load(file)
+
+            if not isinstance(students, list):
+                print("\nInvalid student data found.")
+                students = []
+
     except FileNotFoundError:
+        students = []
+
+    except json.JSONDecodeError:
+        print("\nWarning: students.json is corrupted or empty.")
+        print("Starting with an empty student list.")
         students = []
 
 def get_student_id():
