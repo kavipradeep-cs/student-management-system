@@ -1,4 +1,6 @@
 import json
+import csv
+
 
 students = []
 
@@ -468,6 +470,8 @@ def sort_students():
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
         print("--------------------------------")
+
+
 def filter_students():
     if len(students) == 0:
         print("\nNo students available.")
@@ -526,6 +530,38 @@ def filter_students():
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
 
+def export_to_csv():
+    if len(students) == 0:
+        print("\nNo students available to export.")
+        return
+
+    with open("students.csv", "w", newline="") as file:
+        fieldnames = [
+            "id",
+            "name",
+            "age",
+            "department",
+            "mark1",
+            "mark2",
+            "mark3",
+            "mark4",
+            "mark5",
+            "total",
+            "average",
+            "grade",
+            "status"
+        ]
+
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+        writer.writeheader()
+
+        for student in students:
+            writer.writerow(student)
+
+    print("\nStudents exported successfully to students.csv")
+
+
 load_students()
 
 while True:
@@ -542,7 +578,8 @@ while True:
     print("6. Student Statistics")
     print("7. Sort Students")
     print("8. Filter Students")
-    print("9. Exit")
+    print("9. Export Students to CSV")
+    print("10. Exit")
     print("========================================")
 
     choice = input("Enter your choice: ")
@@ -576,6 +613,9 @@ while True:
        filter_students()
 
     elif choice == "9":
+       export_to_csv()
+
+    elif choice == "10":
        confirm = input("\nAre you sure you want to exit? (yes/no): ")
 
        if confirm.lower() == "yes":
@@ -585,4 +625,4 @@ while True:
         print("\nReturning to main menu...")
 
     else:
-        print("\nInvalid choice. Please enter a number from 1 to 9.")
+        print("\nInvalid choice. Please enter a number from 1 to 10.")
