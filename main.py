@@ -333,11 +333,10 @@ def delete_student():
             return
 
     print("\nStudent not found.")
-
 def student_statistics():
-    print("\n================================")
-    print("       STUDENT STATISTICS")
-    print("================================")
+    print("\n========================================")
+    print("       CLASS PERFORMANCE REPORT")
+    print("========================================")
 
     if len(students) == 0:
         print("No students available.")
@@ -348,34 +347,64 @@ def student_statistics():
     failed = 0
     total_average = 0
 
-    highest_average = students[0].get("average", 0)
-    lowest_average = students[0].get("average", 0)
+    highest_student = students[0]
+    lowest_student = students[0]
+
+    department_count = {}
 
     for student in students:
         average = student.get("average", 0)
         total_average += average
 
-        if student.get("status") == "PASS":
+        if student.get("status", "").upper() == "PASS":
             passed += 1
         else:
             failed += 1
 
-        if average > highest_average:
-            highest_average = average
+        if average > highest_student.get("average", 0):
+            highest_student = student
 
-        if average < lowest_average:
-            lowest_average = average
+        if average < lowest_student.get("average", 0):
+            lowest_student = student
+
+        department = student.get("department", "UNKNOWN")
+        department_count[department] = department_count.get(department, 0) + 1
 
     class_average = round(total_average / total_students, 2)
+
+    pass_percentage = round((passed / total_students) * 100, 2)
+    fail_percentage = round((failed / total_students) * 100, 2)
 
     print("Total Students :", total_students)
     print("Passed         :", passed)
     print("Failed         :", failed)
+    print("Pass Percentage:", f"{pass_percentage:.2f}%")
+    print("Fail Percentage:", f"{fail_percentage:.2f}%")
     print("Class Average  :", f"{class_average:.2f}")
-    print("Highest Average:", f"{highest_average:.2f}")
-    print("Lowest Average :", f"{lowest_average:.2f}")
 
-    print("================================")
+    print("----------------------------------------")
+    print("HIGHEST PERFORMER")
+    print("Name           :", highest_student.get("name", "N/A"))
+    print("ID             :", highest_student.get("id", "N/A"))
+    print("Average        :", f"{highest_student.get('average', 0):.2f}")
+
+    print("----------------------------------------")
+    print("LOWEST PERFORMER")
+    print("Name           :", lowest_student.get("name", "N/A"))
+    print("ID             :", lowest_student.get("id", "N/A"))
+    print("Average        :", f"{lowest_student.get('average', 0):.2f}")
+
+    print("----------------------------------------")
+    print("DEPARTMENT-WISE STUDENT COUNT")
+
+    for department, count in department_count.items():
+        print(department, ":", count)
+
+    print("----------------------------------------")
+    print("Highest Average:", f"{highest_student.get('average', 0):.2f}")
+    print("Lowest Average :", f"{lowest_student.get('average', 0):.2f}")
+
+    print("========================================")
 
 def sort_students():
     if len(students) == 0:
