@@ -228,22 +228,34 @@ def search_student():
 
     for student in students:
         if student.get("id", "").upper() == search_id:
-            print("\n================================")
-            print("        STUDENT FOUND")
-            print("================================")
+            print("\n========================================")
+            print("           STUDENT REPORT")
+            print("========================================")
 
-            print("ID         :", student.get("id"))
-            print("Name       :", student.get("name"))
-            print("Age        :", student.get("age"))
-            print("Department :", student.get("department"))
+            print("ID         :", student.get("id", "N/A"))
+            print("Name       :", student.get("name", "N/A"))
+            print("Age        :", student.get("age", "N/A"))
+            print("Department :", student.get("department", "N/A"))
+
+            print("----------------------------------------")
+            print("Mark 1     :", student.get("mark1", "N/A"))
+            print("Mark 2     :", student.get("mark2", "N/A"))
+            print("Mark 3     :", student.get("mark3", "N/A"))
+            print("Mark 4     :", student.get("mark4", "N/A"))
+            print("Mark 5     :", student.get("mark5", "N/A"))
+
+            print("----------------------------------------")
+            print("Total      :", student.get("total", "N/A"))
 
             average = student.get("average", "N/A")
             if isinstance(average, (int, float)):
                 average = f"{average:.2f}"
 
             print("Average    :", average)
-            print("Grade      :", student.get("grade"))
-            print("Status     :", student.get("status"))
+            print("Grade      :", student.get("grade", "N/A"))
+            print("Status     :", student.get("status", "N/A"))
+
+            print("========================================")
 
             return
 
