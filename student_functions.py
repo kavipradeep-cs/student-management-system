@@ -108,6 +108,36 @@ def get_mark(subject):
         except ValueError:
             print("Please enter a valid number.")
 
+def get_total_classes():
+    while True:
+        try:
+            total_classes = int(input("Enter total classes: "))
+
+            if total_classes > 0:
+                return total_classes
+            else:
+                print("Total classes must be greater than 0.")
+
+        except ValueError:
+            print("Please enter a valid number.")
+
+
+def get_attended_classes(total_classes):
+    while True:
+        try:
+            attended_classes = int(input("Enter classes attended: "))
+
+            if 0 <= attended_classes <= total_classes:
+                return attended_classes
+            else:
+                print(
+                    "Classes attended must be between 0 and",
+                    total_classes
+                )
+
+        except ValueError:
+            print("Please enter a valid number.")
+
 def calculate_grade(average):
     if average >= 90:
         return "A+"
@@ -143,6 +173,18 @@ def add_student():
     mark3 = get_mark("mark 3")
     mark4 = get_mark("mark 4")
     mark5 = get_mark("mark 5")
+
+    total_classes = get_total_classes()
+    attended_classes = get_attended_classes(total_classes)
+
+    attendance_percentage = round(
+    (attended_classes / total_classes) * 100, 2
+    )
+
+    if attendance_percentage >= 75:
+       attendance_status = "GOOD"
+    else:
+       attendance_status = "LOW"
 
     total = mark1 + mark2 + mark3 + mark4 + mark5
     average = round(total / 5, 2)
@@ -187,7 +229,11 @@ def add_student():
         "total": total,
         "average": average,
         "grade": grade,
-        "status": status
+        "status": status,
+        "total_classes": total_classes,
+        "attended_classes": attended_classes,
+        "attendance_percentage": attendance_percentage,
+        "attendance_status": attendance_status
     }
 
 def view_students():
@@ -223,6 +269,17 @@ def view_students():
         print("Grade      :", student.get("grade", "N/A"))
         print("Status     :", student.get("status", "N/A"))
 
+        attendance = student.get("attendance_percentage", "N/A")
+
+        if isinstance(attendance, (int, float)):
+            attendance = f"{attendance:.2f}%"
+
+        print("--------------------------------")
+        print("Total Classes    :", student.get("total_classes", "N/A"))
+        print("Classes Attended :", student.get("attended_classes", "N/A"))
+        print("Attendance       :", attendance)
+        print("Attendance Status:", student.get("attendance_status", "N/A"))
+
         print("================================")
 
 def search_student():
@@ -257,6 +314,17 @@ def search_student():
             print("Grade      :", student.get("grade", "N/A"))
             print("Status     :", student.get("status", "N/A"))
 
+            attendance = student.get("attendance_percentage", "N/A")
+
+            if isinstance(attendance, (int, float)):
+                attendance = f"{attendance:.2f}%"
+
+            print("----------------------------------------")
+            print("Total Classes    :", student.get("total_classes", "N/A"))
+            print("Classes Attended :", student.get("attended_classes", "N/A"))
+            print("Attendance       :", attendance)
+            print("Attendance Status:", student.get("attendance_status", "N/A"))
+
             print("========================================")
 
             return
@@ -273,6 +341,7 @@ def update_student():
             print("2. Update age")
             print("3. Update department")
             print("4. Update marks")
+            print("5. Update attendance")
 
             choice = input("Enter your choice: ")
 
@@ -304,6 +373,23 @@ def update_student():
                 student["grade"] = calculate_grade(student["average"])
                 student["status"] = calculate_status(student["average"])
 
+            elif choice == "5":
+                total_classes = get_total_classes()
+                attended_classes = get_attended_classes(total_classes)
+
+                attendance_percentage = round(
+                    (attended_classes / total_classes) * 100, 2
+                )
+
+                if attendance_percentage >= 75:
+                    attendance_status = "GOOD"
+                else:
+                    attendance_status = "LOW"
+
+                student["total_classes"] = total_classes
+                student["attended_classes"] = attended_classes
+                student["attendance_percentage"] = attendance_percentage
+                student["attendance_status"] = attendance_status
             else:
                 print("Invalid choice.")
                 return
@@ -551,10 +637,18 @@ def export_to_csv():
             "total",
             "average",
             "grade",
-            "status"
+            "status",
+            "total_classes",
+            "attended_classes",
+            "attendance_percentage",
+            "attendance_status"
         ]
 
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer = csv.DictWriter(
+            file,
+            fieldnames=fieldnames,
+            extrasaction="ignore"
+        )
 
         writer.writeheader()
 
