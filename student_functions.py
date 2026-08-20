@@ -562,3 +562,57 @@ def export_to_csv():
             writer.writerow(student)
 
     print("\nStudents exported successfully to students.csv")
+
+def performance_report():
+    if len(students) == 0:
+        print("\nNo students available.")
+        return
+
+    student_id = input("\nEnter student ID: ").strip().upper()
+
+    for student in students:
+        if student.get("id", "").upper() == student_id:
+
+            average = student.get("average", 0)
+
+            if average >= 90:
+                performance = "Outstanding"
+            elif average >= 80:
+                performance = "Excellent"
+            elif average >= 70:
+                performance = "Very Good"
+            elif average >= 60:
+                performance = "Good"
+            elif average >= 50:
+                performance = "Average"
+            else:
+                performance = "Needs Improvement"
+
+            print("\n========================================")
+            print("        STUDENT PERFORMANCE REPORT")
+            print("========================================")
+
+            print("Student ID :", student.get("id", "N/A"))
+            print("Name       :", student.get("name", "N/A"))
+            print("Age        :", student.get("age", "N/A"))
+            print("Department :", student.get("department", "N/A"))
+
+            print("----------------------------------------")
+            print("Mark 1     :", student.get("mark1", "N/A"))
+            print("Mark 2     :", student.get("mark2", "N/A"))
+            print("Mark 3     :", student.get("mark3", "N/A"))
+            print("Mark 4     :", student.get("mark4", "N/A"))
+            print("Mark 5     :", student.get("mark5", "N/A"))
+
+            print("----------------------------------------")
+            print("Total      :", student.get("total", "N/A"))
+            print("Average    :", f"{average:.2f}")
+            print("Grade      :", student.get("grade", "N/A"))
+            print("Status     :", student.get("status", "N/A"))
+            print("Performance:", performance)
+
+            print("========================================")
+
+            return
+
+    print("\nStudent not found.")

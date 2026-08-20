@@ -17,7 +17,8 @@ while True:
     print("7. Sort Students")
     print("8. Filter Students")
     print("9. Export Students to CSV")
-    print("10. Exit")
+    print("10. Student Performance Report")
+    print("11. Exit")
     print("========================================")
 
     choice = input("Enter your choice: ")
@@ -54,6 +55,9 @@ while True:
         sf.export_to_csv()
 
     elif choice == "10":
+        sf.performance_report()
+
+    elif choice == "11":
         confirm = input("\nAre you sure you want to exit? (yes/no): ")
 
         if confirm.lower() == "yes":
@@ -63,4 +67,4 @@ while True:
             print("\nReturning to main menu...")
 
     else:
-        print("\nInvalid choice. Please enter a number from 1 to 10.")
+        print("\nInvalid choice. Please enter a number from 1 to 11.")
