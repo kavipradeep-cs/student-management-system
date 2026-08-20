@@ -309,6 +309,7 @@ def update_student():
                 return
 
             print("\nStudent updated successfully!")
+            save_students()
             return
 
     print("\nStudent not found.")
@@ -328,6 +329,7 @@ def delete_student():
 
             if confirm.lower() == "yes":
                 students.remove(student)
+                save_students()
                 print("\nStudent deleted successfully!")
             else:
                 print("\nDeletion cancelled.")
