@@ -602,7 +602,7 @@ def filter_students():
 
         filtered_students = [
             student for student in students
-            if student.get("department", "").lower() == department.lower()
+            if department.lower() in student.get("department", "").lower()
         ]
 
         print("\n========== FILTERED STUDENTS ==========")
