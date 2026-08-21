@@ -5,8 +5,13 @@ import csv
 students = []
 
 def save_students():
-    with open("students.json", "w") as file:
-        json.dump(students, file, indent=4)
+    try:
+        with open("students.json", "w") as file:
+            json.dump(students, file, indent=4)
+
+    except OSError as error:
+        print("\nError: Unable to save student data.")
+        print("Details:", error)
 
 def load_students():
     global students
