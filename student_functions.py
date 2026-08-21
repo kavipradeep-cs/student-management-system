@@ -236,6 +236,46 @@ def add_student():
         "attendance_status": attendance_status
     }
 
+def display_student_report(student):
+    print("\n========================================")
+    print("           STUDENT REPORT")
+    print("========================================")
+
+    print("ID         :", student.get("id", "N/A"))
+    print("Name       :", student.get("name", "N/A"))
+    print("Age        :", student.get("age", "N/A"))
+    print("Department :", student.get("department", "N/A"))
+
+    print("----------------------------------------")
+    print("Mark 1     :", student.get("mark1", "N/A"))
+    print("Mark 2     :", student.get("mark2", "N/A"))
+    print("Mark 3     :", student.get("mark3", "N/A"))
+    print("Mark 4     :", student.get("mark4", "N/A"))
+    print("Mark 5     :", student.get("mark5", "N/A"))
+
+    print("----------------------------------------")
+    print("Total      :", student.get("total", "N/A"))
+
+    average = student.get("average", "N/A")
+    if isinstance(average, (int, float)):
+        average = f"{average:.2f}"
+
+    print("Average    :", average)
+    print("Grade      :", student.get("grade", "N/A"))
+    print("Status     :", student.get("status", "N/A"))
+
+    attendance = student.get("attendance_percentage", "N/A")
+    if isinstance(attendance, (int, float)):
+        attendance = f"{attendance:.2f}%"
+
+    print("----------------------------------------")
+    print("Total Classes    :", student.get("total_classes", "N/A"))
+    print("Classes Attended :", student.get("attended_classes", "N/A"))
+    print("Attendance       :", attendance)
+    print("Attendance Status:", student.get("attendance_status", "N/A"))
+
+    print("========================================")
+
 def view_students():
     print("\n================================")
     print("        ALL STUDENTS")
@@ -287,46 +327,7 @@ def search_student():
 
     for student in students:
         if student.get("id", "").upper() == search_id:
-            print("\n========================================")
-            print("           STUDENT REPORT")
-            print("========================================")
-
-            print("ID         :", student.get("id", "N/A"))
-            print("Name       :", student.get("name", "N/A"))
-            print("Age        :", student.get("age", "N/A"))
-            print("Department :", student.get("department", "N/A"))
-
-            print("----------------------------------------")
-            print("Mark 1     :", student.get("mark1", "N/A"))
-            print("Mark 2     :", student.get("mark2", "N/A"))
-            print("Mark 3     :", student.get("mark3", "N/A"))
-            print("Mark 4     :", student.get("mark4", "N/A"))
-            print("Mark 5     :", student.get("mark5", "N/A"))
-
-            print("----------------------------------------")
-            print("Total      :", student.get("total", "N/A"))
-
-            average = student.get("average", "N/A")
-            if isinstance(average, (int, float)):
-                average = f"{average:.2f}"
-
-            print("Average    :", average)
-            print("Grade      :", student.get("grade", "N/A"))
-            print("Status     :", student.get("status", "N/A"))
-
-            attendance = student.get("attendance_percentage", "N/A")
-
-            if isinstance(attendance, (int, float)):
-                attendance = f"{attendance:.2f}%"
-
-            print("----------------------------------------")
-            print("Total Classes    :", student.get("total_classes", "N/A"))
-            print("Classes Attended :", student.get("attended_classes", "N/A"))
-            print("Attendance       :", attendance)
-            print("Attendance Status:", student.get("attendance_status", "N/A"))
-
-            print("========================================")
-
+            display_student_report(student)
             return
 
     print("\nStudent not found.")
@@ -666,47 +667,7 @@ def performance_report():
 
     for student in students:
         if student.get("id", "").upper() == student_id:
-
-            average = student.get("average", 0)
-
-            if average >= 90:
-                performance = "Outstanding"
-            elif average >= 80:
-                performance = "Excellent"
-            elif average >= 70:
-                performance = "Very Good"
-            elif average >= 60:
-                performance = "Good"
-            elif average >= 50:
-                performance = "Average"
-            else:
-                performance = "Needs Improvement"
-
-            print("\n========================================")
-            print("        STUDENT PERFORMANCE REPORT")
-            print("========================================")
-
-            print("Student ID :", student.get("id", "N/A"))
-            print("Name       :", student.get("name", "N/A"))
-            print("Age        :", student.get("age", "N/A"))
-            print("Department :", student.get("department", "N/A"))
-
-            print("----------------------------------------")
-            print("Mark 1     :", student.get("mark1", "N/A"))
-            print("Mark 2     :", student.get("mark2", "N/A"))
-            print("Mark 3     :", student.get("mark3", "N/A"))
-            print("Mark 4     :", student.get("mark4", "N/A"))
-            print("Mark 5     :", student.get("mark5", "N/A"))
-
-            print("----------------------------------------")
-            print("Total      :", student.get("total", "N/A"))
-            print("Average    :", f"{average:.2f}")
-            print("Grade      :", student.get("grade", "N/A"))
-            print("Status     :", student.get("status", "N/A"))
-            print("Performance:", performance)
-
-            print("========================================")
-
+            display_student_report(student)
             return
 
     print("\nStudent not found.")
