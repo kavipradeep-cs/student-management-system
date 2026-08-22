@@ -676,3 +676,43 @@ def performance_report():
             return
 
     print("\nStudent not found.")
+
+
+def student_ranking():
+    print("\n========================================")
+    print("           STUDENT RANKING")
+    print("========================================")
+
+    if len(students) == 0:
+        print("\nNo students available.")
+        return
+
+    ranked_students = []
+
+    for student in students:
+        average = student.get("average")
+
+        if isinstance(average, (int, float)):
+            ranked_students.append(student)
+
+    if len(ranked_students) == 0:
+        print("\nNo students with marks available for ranking.")
+        return
+
+    ranked_students.sort(
+        key=lambda student: student.get("average", 0),
+        reverse=True
+    )
+
+    print("\nRank  ID         Name                 Average")
+    print("-----------------------------------------------")
+
+    for rank, student in enumerate(ranked_students, start=1):
+        print(
+            f"{rank:<6}"
+            f"{student.get('id', 'N/A'):<11}"
+            f"{student.get('name', 'N/A'):<21}"
+            f"{student.get('average', 0):.2f}"
+        )
+
+    print("===============================================")
