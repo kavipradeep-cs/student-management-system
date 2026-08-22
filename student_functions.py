@@ -677,7 +677,6 @@ def performance_report():
 
     print("\nStudent not found.")
 
-
 def student_ranking():
     print("\n========================================")
     print("           STUDENT RANKING")
@@ -707,12 +706,22 @@ def student_ranking():
     print("\nRank  ID         Name                 Average")
     print("-----------------------------------------------")
 
-    for rank, student in enumerate(ranked_students, start=1):
-        print(
-            f"{rank:<6}"
-            f"{student.get('id', 'N/A'):<11}"
-            f"{student.get('name', 'N/A'):<21}"
-            f"{student.get('average', 0):.2f}"
-        )
+    rank = 1
+previous_average = None
+
+for index, student in enumerate(ranked_students):
+    average = student.get("average", 0)
+
+    if previous_average is not None and average < previous_average:
+        rank = index + 1
+
+    print(
+        f"{rank:<6}"
+        f"{student.get('id', 'N/A'):<11}"
+        f"{student.get('name', 'N/A'):<21}"
+        f"{average:.2f}"
+    )
+
+    previous_average = average
 
     print("===============================================")
