@@ -502,6 +502,90 @@ def student_statistics():
 
     print("========================================")
 
+def attendance_analytics():
+    print("\n========================================")
+    print("        ATTENDANCE ANALYTICS")
+    print("========================================")
+
+    if len(students) == 0:
+        print("No students available.")
+        return
+
+    attendance_students = []
+
+    for student in students:
+        attendance = student.get("attendance_percentage")
+
+        if isinstance(attendance, (int, float)):
+            attendance_students.append(student)
+
+    if len(attendance_students) == 0:
+        print("No attendance data available.")
+        return
+
+    total_students = len(attendance_students)
+    total_attendance = 0
+    good_attendance = 0
+    low_attendance = 0
+
+    highest_student = attendance_students[0]
+    lowest_student = attendance_students[0]
+
+    for student in attendance_students:
+        attendance = student.get("attendance_percentage", 0)
+
+        total_attendance += attendance
+
+        if attendance >= 75:
+            good_attendance += 1
+        else:
+            low_attendance += 1
+
+        if attendance > highest_student.get("attendance_percentage", 0):
+            highest_student = student
+
+        if attendance < lowest_student.get("attendance_percentage", 0):
+            lowest_student = student
+
+    average_attendance = round(
+        total_attendance / total_students, 2
+    )
+
+    good_percentage = round(
+        (good_attendance / total_students) * 100, 2
+    )
+
+    low_percentage = round(
+        (low_attendance / total_students) * 100, 2
+    )
+
+    print("Total Students       :", total_students)
+    print("Average Attendance   :", f"{average_attendance:.2f}%")
+    print("Good Attendance      :", good_attendance)
+    print("Low Attendance       :", low_attendance)
+    print("Good Attendance %    :", f"{good_percentage:.2f}%")
+    print("Low Attendance %     :", f"{low_percentage:.2f}%")
+
+    print("----------------------------------------")
+    print("HIGHEST ATTENDANCE")
+    print("Name                 :", highest_student.get("name", "N/A"))
+    print("ID                   :", highest_student.get("id", "N/A"))
+    print(
+        "Attendance           :",
+        f"{highest_student.get('attendance_percentage', 0):.2f}%"
+    )
+
+    print("----------------------------------------")
+    print("LOWEST ATTENDANCE")
+    print("Name                 :", lowest_student.get("name", "N/A"))
+    print("ID                   :", lowest_student.get("id", "N/A"))
+    print(
+        "Attendance           :",
+        f"{lowest_student.get('attendance_percentage', 0):.2f}%"
+    )
+
+    print("========================================")
+
 def sort_students():
     if len(students) == 0:
         print("\nNo students available.")
@@ -707,21 +791,21 @@ def student_ranking():
     print("-----------------------------------------------")
 
     rank = 1
-previous_average = None
+    previous_average = None
 
-for index, student in enumerate(ranked_students):
-    average = student.get("average", 0)
+    for index, student in enumerate(ranked_students):
+        average = student.get("average", 0)
 
-    if previous_average is not None and average < previous_average:
-        rank = index + 1
+        if previous_average is not None and average < previous_average:
+            rank = index + 1
 
-    print(
-        f"{rank:<6}"
-        f"{student.get('id', 'N/A'):<11}"
-        f"{student.get('name', 'N/A'):<21}"
-        f"{average:.2f}"
-    )
+        print(
+            f"{rank:<6}"
+            f"{student.get('id', 'N/A'):<11}"
+            f"{student.get('name', 'N/A'):<21}"
+            f"{average:.2f}"
+        )
 
-    previous_average = average
+        previous_average = average
 
     print("===============================================")
