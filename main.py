@@ -20,7 +20,9 @@ while True:
     print("10. Student Performance Report")
     print("11. Student Ranking")
     print("12. Attendance Analytics")
-    print("13. Exit")
+    print("13. Low Attendance Students")
+    print("14. Sort by Attendance")
+    print("15. Exit") 
     print("========================================")
 
     choice = input("Enter your choice: ")
@@ -66,15 +68,18 @@ while True:
         sf.attendance_analytics()
 
     elif choice == "13":
-        confirm = input(
-            "\nAre you sure you want to exit? (yes/no): "
-        )
+        sf.low_attendance_students()
 
-        if confirm.lower() == "yes":
-            print("\nThank you for using Student Management System!")
-            break
-        else:
-            print("\nReturning to main menu...")
+    elif choice == "14":
+        sf.sort_by_attendance()
 
-    else:
-        print("\nInvalid choice. Please try again.")
+    elif choice == "15":
+      confirm = input(
+        "\nAre you sure you want to exit? (yes/no): "
+      )
+
+      if confirm.lower() == "yes":
+        print("\nThank you for using Student Management System!")
+        break
+      else:
+        print("\nReturning to main menu...")

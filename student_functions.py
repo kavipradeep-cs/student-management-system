@@ -586,6 +586,108 @@ def attendance_analytics():
 
     print("========================================")
 
+def low_attendance_students():
+    print("\n========================================")
+    print("       LOW ATTENDANCE STUDENTS")
+    print("========================================")
+
+    if len(students) == 0:
+        print("No students available.")
+        return
+
+    low_students = []
+
+    for student in students:
+        attendance = student.get("attendance_percentage")
+
+        if isinstance(attendance, (int, float)) and attendance < 75:
+            low_students.append(student)
+
+    if len(low_students) == 0:
+        print("No students have low attendance.")
+        return
+
+    print("\nStudents below 75% attendance:")
+    print("----------------------------------------")
+
+    for student in low_students:
+        print("ID         :", student.get("id", "N/A"))
+        print("Name       :", student.get("name", "N/A"))
+        print("Department :", student.get("department", "N/A"))
+        print(
+            "Attendance :",
+            f"{student.get('attendance_percentage', 0):.2f}%"
+        )
+        print("Status     :", student.get("attendance_status", "LOW"))
+        print("----------------------------------------")
+
+    print("Total Low Attendance Students:", len(low_students))
+    print("========================================")
+
+def sort_by_attendance():
+    print("\n========================================")
+    print("       SORT BY ATTENDANCE")
+    print("========================================")
+
+    if len(students) == 0:
+        print("No students available.")
+        return
+
+    print("1. Highest to Lowest")
+    print("2. Lowest to Highest")
+    print("----------------------------------------")
+
+    choice = input("Enter your choice: ")
+
+    attendance_students = [
+        student for student in students
+        if isinstance(
+            student.get("attendance_percentage"),
+            (int, float)
+        )
+    ]
+
+    if len(attendance_students) == 0:
+        print("No attendance data available.")
+        return
+
+    if choice == "1":
+        sorted_students = sorted(
+            attendance_students,
+            key=lambda student: student.get(
+                "attendance_percentage", 0
+            ),
+            reverse=True
+        )
+
+    elif choice == "2":
+        sorted_students = sorted(
+            attendance_students,
+            key=lambda student: student.get(
+                "attendance_percentage", 0
+            )
+        )
+
+    else:
+        print("Invalid choice.")
+        return
+
+    print("\n========================================")
+    print("       ATTENDANCE SORTING")
+    print("========================================")
+
+    for student in sorted_students:
+        print(
+            student.get("id", "N/A"),
+            "-",
+            student.get("name", "N/A"),
+            "-",
+            f"{student.get('attendance_percentage', 0):.2f}%"
+        )
+
+    print("========================================")
+
+
 def sort_students():
     if len(students) == 0:
         print("\nNo students available.")
