@@ -3,26 +3,34 @@ import student_functions as sf
 sf.load_students()
 
 while True:
+
     print("\n========================================")
     print("       STUDENT MANAGEMENT SYSTEM")
     print("========================================")
+
     print("Total Students:", len(sf.students))
-    print("----------------------------------------")
+
+    print("\n--------------- MANAGEMENT -------------")
     print("1. Add Student")
     print("2. View Students")
     print("3. Search Student")
     print("4. Update Student")
     print("5. Delete Student")
+
+    print("\n--------------- ANALYTICS ---------------")
     print("6. Student Statistics")
     print("7. Sort Students")
     print("8. Filter Students")
     print("9. Export Students to CSV")
     print("10. Student Performance Report")
     print("11. Student Ranking")
+
+    print("\n--------------- ATTENDANCE --------------")
     print("12. Attendance Analytics")
     print("13. Low Attendance Students")
     print("14. Sort by Attendance")
-    print("15. Exit") 
+
+    print("\n15. Exit")
     print("========================================")
 
     choice = input("Enter your choice: ")
