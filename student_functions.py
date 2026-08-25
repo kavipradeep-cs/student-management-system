@@ -357,8 +357,10 @@ def search_student():
 
     if not found:
         print("\nStudent not found.")
+    else:
+        print("\nSearch completed successfully.")
 
-        
+
 def update_student():
     search_id = input("\nEnter student ID to update: ").strip().upper()
 
