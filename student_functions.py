@@ -334,15 +334,31 @@ def view_students():
         print("================================")
 
 def search_student():
-    search_id = input("\nEnter student ID to search: ").strip().upper()
+    search_value = input(
+        "\nEnter student ID or name to search: "
+    ).strip()
+
+    if not search_value:
+        print("\nSearch value cannot be empty.")
+        return
+
+    found = False
 
     for student in students:
-        if student.get("id", "").upper() == search_id:
+        student_id = str(student.get("id", "")).upper()
+        student_name = str(student.get("name", "")).lower()
+
+        if (
+            search_value.upper() == student_id
+            or search_value.lower() in student_name
+        ):
             display_student_report(student)
-            return
+            found = True
 
-    print("\nStudent not found.")
+    if not found:
+        print("\nStudent not found.")
 
+        
 def update_student():
     search_id = input("\nEnter student ID to update: ").strip().upper()
 
