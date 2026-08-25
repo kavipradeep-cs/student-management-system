@@ -348,7 +348,22 @@ def update_student():
 
     for student in students:
         if student.get("id", "").upper() == search_id:
-            print("\nStudent found!")
+
+            print("\n================================")
+            print("       CURRENT STUDENT DETAILS")
+            print("================================")
+            print("ID         :", student.get("id", "N/A"))
+            print("Name       :", student.get("name", "N/A"))
+            print("Age        :", student.get("age", "N/A"))
+            print("Department :", student.get("department", "N/A"))
+            print("Mark 1     :", student.get("mark1", "N/A"))
+            print("Mark 2     :", student.get("mark2", "N/A"))
+            print("Mark 3     :", student.get("mark3", "N/A"))
+            print("Mark 4     :", student.get("mark4", "N/A"))
+            print("Mark 5     :", student.get("mark5", "N/A"))
+            print("Attendance :", student.get("attendance_percentage", "N/A"), "%")
+
+            print("\nWhat do you want to update?")
             print("1. Update name")
             print("2. Update age")
             print("3. Update department")
@@ -402,6 +417,7 @@ def update_student():
                 student["attended_classes"] = attended_classes
                 student["attendance_percentage"] = attendance_percentage
                 student["attendance_status"] = attendance_status
+
             else:
                 print("Invalid choice.")
                 return
