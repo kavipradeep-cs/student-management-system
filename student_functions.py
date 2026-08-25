@@ -433,15 +433,28 @@ def delete_student():
 
     for student in students:
         if student.get("id", "").upper() == search_id:
-            print("\nStudent found:")
-            print("ID   :", student.get("id"))
-            print("Name :", student.get("name"))
 
-            confirm = input(
-                "Are you sure you want to delete this student? (yes/no): "
+            print("\n================================")
+            print("       STUDENT TO BE DELETED")
+            print("================================")
+            print("ID         :", student.get("id", "N/A"))
+            print("Name       :", student.get("name", "N/A"))
+            print("Age        :", student.get("age", "N/A"))
+            print("Department :", student.get("department", "N/A"))
+            print("Average    :", student.get("average", "N/A"))
+            print("Grade      :", student.get("grade", "N/A"))
+            print("Status     :", student.get("status", "N/A"))
+            print(
+                "Attendance :",
+                student.get("attendance_percentage", "N/A"),
+                "%"
             )
 
-            if confirm.lower() == "yes":
+            confirm = input(
+                "\nAre you sure you want to delete this student? (yes/no): "
+            )
+
+            if confirm.strip().lower() == "yes":
                 students.remove(student)
                 save_students()
                 print("\nStudent deleted successfully!")
@@ -451,6 +464,8 @@ def delete_student():
             return
 
     print("\nStudent not found.")
+
+    
 def student_statistics():
     print("\n========================================")
     print("       CLASS PERFORMANCE REPORT")
