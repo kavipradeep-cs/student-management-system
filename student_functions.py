@@ -487,7 +487,9 @@ def delete_student():
             if confirm.strip().lower() == "yes":
                 students.remove(student)
                 save_students()
+
                 print("\nStudent deleted successfully!")
+                print("Remaining students:", len(students))
             else:
                 print("\nDeletion cancelled.")
 
