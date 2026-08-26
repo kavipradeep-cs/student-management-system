@@ -365,7 +365,7 @@ def search_student():
 
     print("\nSearch completed successfully.")
 
-    
+
 def update_student():
     search_id = input("\nEnter student ID to update: ").strip().upper()
 
@@ -393,7 +393,7 @@ def update_student():
             print("4. Update marks")
             print("5. Update attendance")
 
-            choice = input("Enter your choice: ")
+            choice = input("Enter your choice: ").strip()
 
             if choice == "1":
                 student["name"] = get_name()
@@ -442,11 +442,18 @@ def update_student():
                 student["attendance_status"] = attendance_status
 
             else:
-                print("Invalid choice.")
+                print("\nInvalid choice.")
                 return
 
-            print("\nStudent updated successfully!")
             save_students()
+
+            print("\nStudent updated successfully!")
+
+            print("\n================================")
+            print("        UPDATED DETAILS")
+            print("================================")
+            display_student_report(student)
+
             return
 
     print("\nStudent not found.")
