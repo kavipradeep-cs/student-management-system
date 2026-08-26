@@ -342,7 +342,7 @@ def search_student():
         print("\nSearch value cannot be empty.")
         return
 
-    found = False
+    found_students = []
 
     for student in students:
         student_id = str(student.get("id", "")).upper()
@@ -352,15 +352,20 @@ def search_student():
             search_value.upper() == student_id
             or search_value.lower() in student_name
         ):
-            display_student_report(student)
-            found = True
+            found_students.append(student)
 
-    if not found:
+    if not found_students:
         print("\nStudent not found.")
-    else:
-        print("\nSearch completed successfully.")
+        return
 
+    print(f"\n{len(found_students)} student(s) found.")
 
+    for student in found_students:
+        display_student_report(student)
+
+    print("\nSearch completed successfully.")
+
+    
 def update_student():
     search_id = input("\nEnter student ID to update: ").strip().upper()
 
