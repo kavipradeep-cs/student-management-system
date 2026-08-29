@@ -30,7 +30,11 @@ while True:
     print("13. Low Attendance Students")
     print("14. Sort by Attendance")
 
-    print("\n15. Exit")
+    print("\n--------------- BACKUP ------------------")
+    print("15. Backup Student Data")
+    print("16. Restore Student Data")
+
+    print("\n17. Exit")
     print("========================================")
 
     choice = input("Enter your choice: ")
@@ -82,12 +86,18 @@ while True:
         sf.sort_by_attendance()
 
     elif choice == "15":
-      confirm = input(
-        "\nAre you sure you want to exit? (yes/no): "
-      )
+        sf.backup_students()
 
-      if confirm.lower() == "yes":
-        print("\nThank you for using Student Management System!")
-        break
-      else:
-        print("\nReturning to main menu...")
+    elif choice == "16":
+        sf.restore_students()
+
+    elif choice == "17":
+        confirm = input(
+            "\nAre you sure you want to exit? (yes/no): "
+        )
+
+        if confirm.lower() == "yes":
+            print("\nThank you for using Student Management System!")
+            break
+        else:
+            print("\nReturning to main menu...")
