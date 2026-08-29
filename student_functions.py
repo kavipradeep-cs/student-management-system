@@ -50,7 +50,33 @@ def backup_students():
         print("\nError: Unable to create student data backup.")
         print("Details:", error)
 
+def restore_students():
+    global students
 
+    try:
+        with open("students_backup.json", "r") as file:
+            data = json.load(file)
+
+            if isinstance(data, list):
+                students = data
+                save_students()
+
+                print("\nStudent data restored successfully.")
+                print("Restored data saved to students.json.")
+            else:
+                print("\nError: Invalid backup data format.")
+
+    except FileNotFoundError:
+        print("\nError: Backup file not found.")
+
+    except json.JSONDecodeError:
+        print("\nError: Backup file is corrupted or empty.")
+
+    except OSError as error:
+        print("\nError: Unable to restore student data.")
+        print("Details:", error)
+
+        
 def get_student_id():
     while True:
         student_id = input("Enter student ID: ").strip().upper()
