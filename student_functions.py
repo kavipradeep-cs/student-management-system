@@ -38,6 +38,19 @@ def load_students():
         print("Details:", error)
         students = []
 
+def backup_students():
+    try:
+        with open("students_backup.json", "w") as file:
+            json.dump(students, file, indent=4)
+
+        print("\nStudent data backup created successfully.")
+        print("Backup file: students_backup.json")
+
+    except OSError as error:
+        print("\nError: Unable to create student data backup.")
+        print("Details:", error)
+
+
 def get_student_id():
     while True:
         student_id = input("Enter student ID: ").strip().upper()
