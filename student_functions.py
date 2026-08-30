@@ -8,12 +8,17 @@ students = []
 def admin_login():
     max_attempts = 3
 
+    print("\n========================================")
+    print("          ADMIN LOGIN")
+    print("========================================")
+
     for attempt in range(max_attempts):
-        username = input("\nEnter admin username: ").strip()
-        password = input("Enter admin password: ").strip()
+        username = input("\nUsername: ").strip()
+        password = input("Password: ").strip()
 
         if username == "admin" and password == "admin123":
             print("\nLogin successful!")
+            print("Welcome, Administrator.")
             return True
 
         remaining = max_attempts - attempt - 1
