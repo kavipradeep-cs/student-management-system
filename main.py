@@ -1,5 +1,10 @@
 import student_functions as sf
 
+if not sf.admin_login():
+    print("\nAccess denied.")
+    exit()
+
+    
 sf.load_students()
 
 while True:

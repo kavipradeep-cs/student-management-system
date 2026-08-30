@@ -4,6 +4,19 @@ import csv
 
 students = []
 
+
+def admin_login():
+    username = input("\nEnter admin username: ").strip()
+    password = input("Enter admin password: ").strip()
+
+    if username == "admin" and password == "admin123":
+        print("\nLogin successful!")
+        return True
+
+    print("\nInvalid username or password.")
+    return False
+
+
 def save_students():
     try:
         with open("students.json", "w") as file:
