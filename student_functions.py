@@ -6,14 +6,24 @@ students = []
 
 
 def admin_login():
-    username = input("\nEnter admin username: ").strip()
-    password = input("Enter admin password: ").strip()
+    max_attempts = 3
 
-    if username == "admin" and password == "admin123":
-        print("\nLogin successful!")
-        return True
+    for attempt in range(max_attempts):
+        username = input("\nEnter admin username: ").strip()
+        password = input("Enter admin password: ").strip()
 
-    print("\nInvalid username or password.")
+        if username == "admin" and password == "admin123":
+            print("\nLogin successful!")
+            return True
+
+        remaining = max_attempts - attempt - 1
+
+        if remaining > 0:
+            print("\nInvalid username or password.")
+            print("Attempts remaining:", remaining)
+        else:
+            print("\nToo many failed login attempts.")
+
     return False
 
 
