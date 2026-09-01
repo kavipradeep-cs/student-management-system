@@ -1,5 +1,17 @@
 import json
 import csv
+from datetime import datetime
+
+students = []
+
+def log_activity(action):
+    try:
+        with open("activity_log.txt", "a") as file:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            file.write(f"[{timestamp}] {action}\n")
+
+    except OSError as error:
+        print("Error writing activity log:", error)
 
 
 students = []
@@ -1047,3 +1059,6 @@ def student_ranking():
         previous_average = average
 
     print("===============================================")
+
+
+log_activity("System started")
