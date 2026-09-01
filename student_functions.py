@@ -14,9 +14,6 @@ def log_activity(action):
         print("Error writing activity log:", error)
 
 
-students = []
-
-
 def admin_login():
     max_attempts = 3
 
@@ -443,6 +440,7 @@ def search_student():
         display_student_report(student)
 
     print("\nSearch completed successfully.")
+    log_activity(f"Student searched: {search_value}")
 
 
 def update_student():
@@ -525,6 +523,7 @@ def update_student():
                 return
 
             save_students()
+            log_activity(f"Student updated: {student['id']}")
 
             print("\nStudent updated successfully!")
 
@@ -564,13 +563,15 @@ def delete_student():
             )
 
             if confirm.strip().lower() == "yes":
-                students.remove(student)
-                save_students()
+               students.remove(student)
+               save_students()
 
-                print("\nStudent deleted successfully!")
-                print("Remaining students:", len(students))
+               log_activity(f"Student deleted: {search_id}")
+
+               print("\nStudent deleted successfully!")
+               print("Remaining students:", len(students))
             else:
-                print("\nDeletion cancelled.")
+               print("\nDeletion cancelled.")
 
             return
 
@@ -1060,5 +1061,3 @@ def student_ranking():
 
     print("===============================================")
 
-
-log_activity("System started")
