@@ -26,9 +26,12 @@ def admin_login():
         password = input("Password: ").strip()
 
         if username == "admin" and password == "admin123":
-            print("\nLogin successful!")
-            print("Welcome, Administrator.")
-            return True
+         print("\nLogin successful!")
+         print("Welcome, Administrator.")
+
+         log_activity("Admin login successful")
+
+         return True
 
         remaining = max_attempts - attempt - 1
 
@@ -83,6 +86,8 @@ def backup_students():
         print("\nStudent data backup created successfully.")
         print("Backup file: students_backup.json")
 
+        log_activity("Student data backup created")
+
     except OSError as error:
         print("\nError: Unable to create student data backup.")
         print("Details:", error)
@@ -100,6 +105,9 @@ def restore_students():
 
                 print("\nStudent data restored successfully.")
                 print("Restored data saved to students.json.")
+
+                log_activity("Student data restored")
+                
             else:
                 print("\nError: Invalid backup data format.")
 
