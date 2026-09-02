@@ -1,11 +1,22 @@
+import sys
 import student_functions as sf
 
-if not sf.admin_login():
-    print("\nAccess denied.")
-    exit()
 
-    
+# ================= ADMIN LOGIN =================
+
+if not sf.admin_login():
+    print("\n========================================")
+    print("          ACCESS DENIED")
+    print("========================================")
+    sys.exit()
+
+
+# ================= LOAD STUDENTS =================
+
 sf.load_students()
+
+
+# ================= MAIN MENU =================
 
 while True:
 
@@ -42,7 +53,9 @@ while True:
     print("\n17. Exit")
     print("========================================")
 
-    choice = input("Enter your choice: ")
+    choice = input("Enter your choice: ").strip()
+
+    # ================= MANAGEMENT =================
 
     if choice == "1":
         student = sf.add_student()
@@ -63,6 +76,8 @@ while True:
         sf.delete_student()
         sf.save_students()
 
+    # ================= ANALYTICS =================
+
     elif choice == "6":
         sf.student_statistics()
 
@@ -81,6 +96,8 @@ while True:
     elif choice == "11":
         sf.student_ranking()
 
+    # ================= ATTENDANCE =================
+
     elif choice == "12":
         sf.attendance_analytics()
 
@@ -90,19 +107,33 @@ while True:
     elif choice == "14":
         sf.sort_by_attendance()
 
+    # ================= BACKUP =================
+
     elif choice == "15":
         sf.backup_students()
 
     elif choice == "16":
         sf.restore_students()
 
+    # ================= EXIT =================
+
     elif choice == "17":
+
         confirm = input(
             "\nAre you sure you want to exit? (yes/no): "
-        )
+        ).strip().lower()
 
-        if confirm.lower() == "yes":
-            print("\nThank you for using Student Management System!")
+        if confirm == "yes":
+            print("\n========================================")
+            print(" Thank you for using Student Management System!")
+            print("========================================")
             break
+
         else:
             print("\nReturning to main menu...")
+
+    # ================= INVALID CHOICE =================
+
+    else:
+        print("\nInvalid choice.")
+        print("Please enter a number from 1 to 17.")
